@@ -1,4 +1,4 @@
-package com.shoppingplatform.product;
+package com.shoppingplatform.product.model;
 
 import java.math.BigDecimal;
 import java.util.UUID;
