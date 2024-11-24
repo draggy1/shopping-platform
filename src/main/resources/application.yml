@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: Shopping platform
+discount:
+  percentage:
+    10: 0.03
+    100: 0.05
+    1000: 0.1
+  amount:
+    10: 2.0
+    50: 10.0
+    500: 30.0
