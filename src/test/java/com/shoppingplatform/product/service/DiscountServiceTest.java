@@ -42,7 +42,7 @@ class DiscountServiceTest {
     void shouldApplyPercentageDiscountToProduct() {
         when(productService.getProductById(productId)).thenReturn(Optional.of(product));
         when(discountStrategyFactory.getStrategy(PERCENTAGE)).thenReturn(percentageDiscount);
-        when(percentageDiscount.calculateNewPrice(product)).thenReturn(price(3.99));
+        when(percentageDiscount.calculateNewPrice(product)).thenReturn(price(3.99).priceValue());
 
         Optional<Product> actual = discountService.applyDiscountToProduct(productId, PERCENTAGE);
         assertThat(actual).contains(new Product(productId, 4, price(3.99)));
@@ -52,7 +52,7 @@ class DiscountServiceTest {
     void shouldApplyAmountDiscountToProduct() {
         when(productService.getProductById(productId)).thenReturn(Optional.of(product));
         when(discountStrategyFactory.getStrategy(AMOUNT)).thenReturn(amountDiscount);
-        when(amountDiscount.calculateNewPrice(product)).thenReturn(price(2.99));
+        when(amountDiscount.calculateNewPrice(product)).thenReturn(price(2.99).priceValue());
 
         Optional<Product> actual = discountService.applyDiscountToProduct(productId, AMOUNT);
         assertThat(actual).contains(new Product(productId, 4, price(2.99)));

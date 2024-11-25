@@ -1,5 +1,6 @@
 package com.shoppingplatform.product.service;
 
+import com.shoppingplatform.product.model.Price;
 import com.shoppingplatform.product.model.Product;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,9 +37,9 @@ class AmountDiscountTest {
 
     @ParameterizedTest
     @MethodSource("givenProductToExpectedNewPrice")
-    void shouldCalculateNewPrice(Product givenProduct, BigDecimal newPrice) {
+    void shouldCalculateNewPrice(Product givenProduct, Price newPrice) {
         BigDecimal actual = amountDiscount.calculateNewPrice(givenProduct);
-        assertThat(actual).isEqualTo(newPrice);
+        assertThat(actual).isEqualTo(newPrice.priceValue());
     }
 
     @Test
@@ -46,7 +47,7 @@ class AmountDiscountTest {
         Product givenProduct = product(100, price(5.));
         BigDecimal newPrice = amountDiscount.calculateNewPrice(givenProduct);
 
-        assertThat(newPrice).isEqualTo(price(4.5));
+        assertThat(newPrice).isEqualTo(price(4.5).priceValue());
     }
 
     private static Stream<Arguments> givenProductToExpectedNewPrice() {

@@ -25,8 +25,8 @@ public final class AmountDiscount implements DiscountStrategy {
     @Override
     public BigDecimal calculateNewPrice(Product product) {
         BigDecimal discount = getAmountDiscount(product.amount());
-        return isPriceGreaterThenDiscount(product.price(), discount) ?
-                product.price().subtract(discount) :
+        return isPriceGreaterThenDiscount(product.getPriceValue(), discount) ?
+                product.getPriceValue().subtract(discount) :
                 percentageDiscount.calculateNewPrice(product);
     }
 

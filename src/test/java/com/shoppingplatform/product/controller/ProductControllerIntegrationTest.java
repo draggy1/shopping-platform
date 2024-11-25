@@ -63,7 +63,8 @@ class ProductControllerIntegrationTest {
                 .statusCode(200)
                 .body("id", equalTo(productId.toString()))
                 .body("amount", equalTo(1))
-                .body("price", equalTo(10.0F));
+                .body("price.priceValue", equalTo(10.0F))
+                .body("price.currency", equalTo("USD"));
     }
 
     @Test
@@ -79,7 +80,9 @@ class ProductControllerIntegrationTest {
                 .statusCode(200)
                 .body("id", equalTo(productIdToDiscount.toString()))
                 .body("amount", equalTo(10))
-                .body("price", equalTo(90.00f));
+                .body("price.priceValue", equalTo(90.00f))
+                .body("price.currency", equalTo("USD"));
+
     }
 
     @Test

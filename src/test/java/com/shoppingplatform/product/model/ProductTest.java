@@ -14,7 +14,7 @@ class ProductTest {
         Product given = product(4, price(3.99));
 
         //when
-        Product actual = given.applyNewPrice(price(5.55));
+        Product actual = given.applyNewPrice(price(5.55).priceValue());
 
         //then
         assertThat(actual).isEqualTo(new Product(given.id(), 4, price(5.55)));

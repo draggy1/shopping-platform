@@ -22,8 +22,8 @@ public final class PercentageDiscount implements DiscountStrategy {
     @Override
     public BigDecimal calculateNewPrice(Product product) {
         return getPercentageDiscount(product.amount())
-                .map(percentage -> calculateNewPrice(percentage, product.price()))
-                .orElse(product.price());
+                .map(percentage -> calculateNewPrice(percentage, product.getPriceValue()))
+                .orElse(product.getPriceValue());
     }
 
     private static BigDecimal calculateNewPrice(BigDecimal percentage, BigDecimal price) {

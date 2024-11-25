@@ -2,6 +2,7 @@ package com.shoppingplatform.product.service;
 
 import com.shoppingplatform.product.infrastructure.ProductDao;
 import com.shoppingplatform.product.infrastructure.entity.ProductEntity;
+import com.shoppingplatform.product.model.Price;
 import com.shoppingplatform.product.model.Product;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,10 @@ public class ProductService {
     }
 
     private static Product fromEntity(ProductEntity productEntity) {
-        return new Product(productEntity.getId(), productEntity.getAmount(), productEntity.getPrice());
+        return new Product(
+                productEntity.getId(),
+                productEntity.getAmount(),
+                new Price(productEntity.getPrice(), productEntity.getCurrency())
+        );
     }
 }

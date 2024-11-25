@@ -2,6 +2,7 @@ package com.shoppingplatform.product.service;
 
 import com.shoppingplatform.product.infrastructure.ProductDao;
 import com.shoppingplatform.product.infrastructure.entity.ProductEntity;
+import com.shoppingplatform.product.model.Price;
 import com.shoppingplatform.product.model.Product;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,6 +14,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static java.math.BigDecimal.ONE;
+import static java.util.Currency.getInstance;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
@@ -31,13 +33,14 @@ class ProductServiceTest {
     void shouldGetProductById() {
         //given
         UUID productId = UUID.fromString("efa591fe-1805-46d6-8cbc-5ba0567ba834");
-        when(productDao.findById(productId)).thenReturn(Optional.of(new ProductEntity(productId, TWO, ONE)));
+        when(productDao.findById(productId))
+                .thenReturn(Optional.of(new ProductEntity(productId, TWO, ONE, getInstance("USD"))));
 
         //when
         Optional<Product> actual = productService.getProductById(productId);
 
         //then
-        assertThat(actual).contains(new Product(productId, TWO, ONE));
+        assertThat(actual).contains(new Product(productId, TWO, new Price(ONE, getInstance("USD"))));
     }
 
     @Test
