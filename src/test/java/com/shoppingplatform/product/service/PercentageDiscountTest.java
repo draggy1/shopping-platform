@@ -21,15 +21,12 @@ class PercentageDiscountTest {
 
     @BeforeEach
     void setUp() {
-        DiscountConfig discountConfig = new DiscountConfig();
-
         TreeMap<Integer, BigDecimal> percentageMap = new TreeMap<>();
         percentageMap.put(20, valueOf(0.05));
         percentageMap.put(200, valueOf(0.1));
         percentageMap.put(2000, valueOf(0.2));
 
-        discountConfig.setPercentage(percentageMap);
-        percentageDiscount = new PercentageDiscount(discountConfig);
+        percentageDiscount = new PercentageDiscount(percentageMap);
     }
 
     @ParameterizedTest

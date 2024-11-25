@@ -2,6 +2,7 @@ package com.shoppingplatform.product.service;
 
 import com.shoppingplatform.product.model.Product;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -22,15 +23,15 @@ class AmountDiscountTest {
 
     @BeforeEach
     void setUp() {
-        DiscountConfig discountConfig = new DiscountConfig();
+        TreeMap<Integer, BigDecimal> amountDiscountMap = new TreeMap<>();
+        amountDiscountMap.put(10, valueOf(8.55));
+        amountDiscountMap.put(300, valueOf(19.15));
+        amountDiscountMap.put(1000, valueOf(100.09));
 
-        TreeMap<Integer, BigDecimal> amountMap = new TreeMap<>();
-        amountMap.put(10, valueOf(8.55));
-        amountMap.put(300, valueOf(19.15));
-        amountMap.put(1000, valueOf(100.09));
+        TreeMap<Integer, BigDecimal> percentageDiscountMap = new TreeMap<>();
+        percentageDiscountMap.put(100, valueOf(0.1));
 
-        discountConfig.setAmount(amountMap);
-        amountDiscount = new AmountDiscount(discountConfig);
+        amountDiscount = new AmountDiscount(new PercentageDiscount(percentageDiscountMap), amountDiscountMap);
     }
 
     @ParameterizedTest
@@ -38,6 +39,14 @@ class AmountDiscountTest {
     void shouldCalculateNewPrice(Product givenProduct, BigDecimal newPrice) {
         BigDecimal actual = amountDiscount.calculateNewPrice(givenProduct);
         assertThat(actual).isEqualTo(newPrice);
+    }
+
+    @Test
+    void shouldFallbackToPercentageDiscountWhenPriceLessThenDiscount() {
+        Product givenProduct = product(100, price(5.));
+        BigDecimal newPrice = amountDiscount.calculateNewPrice(givenProduct);
+
+        assertThat(newPrice).isEqualTo(price(4.5));
     }
 
     private static Stream<Arguments> givenProductToExpectedNewPrice() {

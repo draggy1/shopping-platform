@@ -1,15 +1,16 @@
-package com.shoppingplatform.product.service;
+package com.shoppingplatform.product.config;
 
 import jakarta.validation.constraints.NotEmpty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.validation.annotation.Validated;
 
 import java.math.BigDecimal;
 import java.util.TreeMap;
 
 @Validated
-@Component
+@Configuration
 @ConfigurationProperties(prefix = "discount")
 public class DiscountConfig {
 
@@ -18,7 +19,8 @@ public class DiscountConfig {
     @NotEmpty(message = "Not provided amount discount configuration")
     private TreeMap<Integer, BigDecimal> amount;
 
-    public TreeMap<Integer, BigDecimal> getPercentage() {
+    @Bean
+    public TreeMap<Integer, BigDecimal> getPercentageDiscountMap() {
         return percentage;
     }
 
@@ -26,7 +28,8 @@ public class DiscountConfig {
         this.percentage = percentage;
     }
 
-    public TreeMap<Integer, BigDecimal> getAmount() {
+    @Bean
+    public TreeMap<Integer, BigDecimal> getAmountDiscountMap() {
         return amount;
     }
 

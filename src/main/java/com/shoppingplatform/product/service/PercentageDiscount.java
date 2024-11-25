@@ -1,6 +1,7 @@
 package com.shoppingplatform.product.service;
 
 import com.shoppingplatform.product.model.Product;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -10,10 +11,12 @@ import java.util.TreeMap;
 import static java.math.RoundingMode.HALF_UP;
 
 @Service
-public final class PercentageDiscount extends DiscountStrategy {
+public final class PercentageDiscount implements DiscountStrategy {
+    private final TreeMap<Integer, BigDecimal> percentageDiscountMap;
 
-    PercentageDiscount(DiscountConfig discountConfig) {
-        super(discountConfig);
+    public PercentageDiscount(@Qualifier("getPercentageDiscountMap")
+                              TreeMap<Integer, BigDecimal> percentageDiscountMap) {
+        this.percentageDiscountMap = percentageDiscountMap;
     }
 
     @Override
@@ -28,10 +31,9 @@ public final class PercentageDiscount extends DiscountStrategy {
     }
 
     private Optional<BigDecimal> getPercentageDiscount(int productAmount) {
-        TreeMap<Integer, BigDecimal> amountToPercentageDiscountMap = discountConfig.getPercentage();
-        Integer discountAmount = amountToPercentageDiscountMap.floorKey(productAmount);
+        Integer discountAmount = percentageDiscountMap.floorKey(productAmount);
         return discountAmount != null ?
-                Optional.ofNullable(amountToPercentageDiscountMap.get(discountAmount)) :
+                Optional.ofNullable(percentageDiscountMap.get(discountAmount)) :
                 Optional.empty();
     }
 }
