@@ -1,12 +1,16 @@
 spring:
   application:
     name: Shopping platform
+  datasource:
+    url: jdbc:postgresql://localhost:5432/shoppingplatform
+    username: myuser
+    password: mypassword
+    jpa:
+      hibernate:
+        ddl-auto: update
+      properties:
+        hibernate:
+          dialect: org.hibernate.dialect.PostgreSQLDialect
 discount:
-  percentage:
-    10: 0.03
-    100: 0.05
-    1000: 0.1
-  amount:
-    10: 2.0
-    50: 10.0
-    500: 30.0
+  percentage: { 10: 0.03, 100: 0.05, 1000: 0.1 }
+  amount: { 10: 2.0, 50: 10.0, 500: 30.0 }

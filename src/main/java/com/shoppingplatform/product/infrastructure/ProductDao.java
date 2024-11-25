@@ -1,10 +1,11 @@
 package com.shoppingplatform.product.infrastructure;
 
-import com.shoppingplatform.product.model.Product;
+import com.shoppingplatform.product.infrastructure.entity.ProductEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
 import java.util.UUID;
 
-public interface ProductDao {
-    Optional<Product> getProductById(UUID id);
+@Repository
+public interface ProductDao extends JpaRepository<ProductEntity, UUID> {
 }
