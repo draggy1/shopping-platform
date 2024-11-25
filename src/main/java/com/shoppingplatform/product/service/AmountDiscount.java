@@ -10,14 +10,14 @@ import java.util.TreeMap;
 import static java.math.BigDecimal.ZERO;
 
 @Service
-public final class AmountDiscount implements DiscountStrategy {
+final class AmountDiscount implements DiscountStrategy {
 
     private final PercentageDiscount percentageDiscount;
     private final TreeMap<Integer, BigDecimal> amountDiscountMap;
 
-    public AmountDiscount(PercentageDiscount percentageDiscount,
-                          @Qualifier("getAmountDiscountMap")
-                          TreeMap<Integer, BigDecimal> amountDiscountMap) {
+    AmountDiscount(PercentageDiscount percentageDiscount,
+                   @Qualifier("getAmountDiscountMap")
+                   TreeMap<Integer, BigDecimal> amountDiscountMap) {
         this.percentageDiscount = percentageDiscount;
         this.amountDiscountMap = amountDiscountMap;
     }

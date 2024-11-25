@@ -11,11 +11,11 @@ import java.util.TreeMap;
 import static java.math.RoundingMode.HALF_UP;
 
 @Service
-public final class PercentageDiscount implements DiscountStrategy {
+final class PercentageDiscount implements DiscountStrategy {
 
     private final TreeMap<Integer, BigDecimal> percentageDiscountMap;
 
-    public PercentageDiscount(@Qualifier("getPercentageDiscountMap")
+    PercentageDiscount(@Qualifier("getPercentageDiscountMap")
                               TreeMap<Integer, BigDecimal> percentageDiscountMap) {
         this.percentageDiscountMap = percentageDiscountMap;
     }

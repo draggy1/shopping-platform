@@ -18,7 +18,7 @@ import static org.springframework.http.ResponseEntity.status;
 
 @RestController
 @RequestMapping("/products")
-public class ProductController {
+class ProductController {
 
     private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
 
@@ -31,7 +31,7 @@ public class ProductController {
     }
 
     @GetMapping("/{productId}")
-    public ResponseEntity<ApiResponse<Product>> getProductById(@PathVariable UUID productId) {
+    ResponseEntity<ApiResponse<Product>> getProductById(@PathVariable UUID productId) {
         logger.info("Received request to get product with ID: {}", productId);
 
         return productService.getProductById(productId)
@@ -46,7 +46,7 @@ public class ProductController {
     }
 
     @PostMapping("{productId}/apply-discount/{discountType}")
-    public ResponseEntity<ApiResponse<Product>> applyDiscount(@PathVariable DiscountType discountType,
+    ResponseEntity<ApiResponse<Product>> applyDiscount(@PathVariable DiscountType discountType,
                                                               @PathVariable UUID productId) {
         return discountService.applyDiscountToProduct(productId, discountType)
                 .map(product -> {
