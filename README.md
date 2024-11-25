@@ -26,8 +26,8 @@ Before you start, ensure you have the following installed:
 
 ### 1. Clone the repository
 ```bash
-todo - change repo
-git clone https://github.com/my-repo/shopping-platform.git
+
+git clone https://github.com/draggy1/shopping-platform.git
 cd shopping-platform
 ```
 

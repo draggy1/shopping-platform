@@ -11,6 +11,7 @@ import static java.math.BigDecimal.ZERO;
 
 @Service
 public final class AmountDiscount implements DiscountStrategy {
+
     private final PercentageDiscount percentageDiscount;
     private final TreeMap<Integer, BigDecimal> amountDiscountMap;
 

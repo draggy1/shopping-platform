@@ -31,28 +31,22 @@ class ProductServiceTest {
 
     @Test
     void shouldGetProductById() {
-        //given
         UUID productId = UUID.fromString("efa591fe-1805-46d6-8cbc-5ba0567ba834");
         when(productDao.findById(productId))
                 .thenReturn(Optional.of(new ProductEntity(productId, TWO, ONE, getInstance("USD"))));
 
-        //when
         Optional<Product> actual = productService.getProductById(productId);
 
-        //then
         assertThat(actual).contains(new Product(productId, TWO, new Price(ONE, getInstance("USD"))));
     }
 
     @Test
     void shouldNotFoundProductById() {
-        //given
         UUID productId = UUID.fromString("21297543-24b5-4f6c-ab0f-a325c1edbbe9");
         when(productDao.findById(productId)).thenReturn(Optional.empty());
 
-        //when
         Optional<Product> actual = productService.getProductById(productId);
 
-        //then
         assertThat(actual).isEmpty();
     }
 }

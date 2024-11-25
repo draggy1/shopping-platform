@@ -22,11 +22,9 @@ public class DiscountService {
     public Optional<Product> applyDiscountToProduct(UUID productId, DiscountType discountType) {
         DiscountStrategy strategy = strategyFactory.getStrategy(discountType);
         return productService.getProductById(productId)
-                .map(product -> applyDiscountToProduct(product, strategy));
-    }
-
-    private Product applyDiscountToProduct(Product product, DiscountStrategy strategy) {
-        BigDecimal newPrice = strategy.calculateNewPrice(product);
-        return product.applyNewPrice(newPrice);
+                .map(product -> {
+                    BigDecimal newPrice = strategy.calculateNewPrice(product);
+                    return product.applyNewPrice(newPrice);
+                });
     }
 }

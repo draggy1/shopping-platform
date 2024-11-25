@@ -61,10 +61,11 @@ class ProductControllerIntegrationTest {
                 .get("/products/{productId}", productId)
                 .then()
                 .statusCode(200)
-                .body("id", equalTo(productId.toString()))
-                .body("amount", equalTo(1))
-                .body("price.priceValue", equalTo(10.0F))
-                .body("price.currency", equalTo("USD"));
+                .body("message", equalTo("Product retrieved successfully"))
+                .body("data.id", equalTo(productId.toString()))
+                .body("data.amount", equalTo(1))
+                .body("data.price.priceValue", equalTo(10.0F))
+                .body("data.price.currency", equalTo("USD"));
     }
 
     @Test
@@ -78,10 +79,11 @@ class ProductControllerIntegrationTest {
                 .post("/products/{productId}/apply-discount/{discountType}", productIdToDiscount, discountType)
                 .then()
                 .statusCode(200)
-                .body("id", equalTo(productIdToDiscount.toString()))
-                .body("amount", equalTo(10))
-                .body("price.priceValue", equalTo(90.00f))
-                .body("price.currency", equalTo("USD"));
+                .body("message", equalTo("Discount applied successfully"))
+                .body("data.id", equalTo(productIdToDiscount.toString()))
+                .body("data.amount", equalTo(10))
+                .body("data.price.priceValue", equalTo(90.00f))
+                .body("data.price.currency", equalTo("USD"));
 
     }
 
@@ -94,6 +96,7 @@ class ProductControllerIntegrationTest {
                 .when()
                 .get("/products/{productId}", notExistingProductId)
                 .then()
+                .body("message", equalTo("Product not found"))
                 .statusCode(NOT_FOUND.value());
     }
 

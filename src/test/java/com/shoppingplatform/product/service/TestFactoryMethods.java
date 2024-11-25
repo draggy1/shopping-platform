@@ -4,7 +4,7 @@ import com.shoppingplatform.product.model.Price;
 import com.shoppingplatform.product.model.Product;
 
 import static java.math.BigDecimal.valueOf;
-import static java.math.RoundingMode.HALF_DOWN;
+import static java.math.RoundingMode.UP;
 import static java.util.Currency.getInstance;
 import static java.util.UUID.randomUUID;
 
@@ -18,6 +18,6 @@ public class TestFactoryMethods {
     }
 
     public static Price price(Double price) {
-        return new Price(valueOf(price).setScale(2, HALF_DOWN), getInstance("USD"));
+        return new Price(valueOf(price).setScale(2, UP), getInstance("USD"));
     }
 }
